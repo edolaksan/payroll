@@ -51,7 +51,6 @@ class PegawaiController extends Controller
 
         $pegawai = Pegawai::findOrFail($id);
 
-        // Update data pegawai
         $pegawai->update([
             'nama' => $request->input('nama'),
             'jabatan' => $request->input('jabatan'),
