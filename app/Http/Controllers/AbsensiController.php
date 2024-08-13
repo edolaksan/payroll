@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Absensi;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AbsensiController extends Controller
 {
@@ -28,6 +29,8 @@ class AbsensiController extends Controller
             'jam_pulang' => 'nullable|date_format:H:i',
         ]);
 
+        $request->merge(['tanggal' => Carbon::now()->toDateString()]);
+
         Absensi::create($request->all());
         return redirect()->route('absensi.index')->with('success', 'Absensi berhasil ditambahkan.');
     }
@@ -48,6 +51,9 @@ class AbsensiController extends Controller
         ]);
 
         $absensi = Absensi::findOrFail($id);
+
+        $request->merge(['tanggal' => Carbon::now()->toDateString()]);
+
         $absensi->update($request->all());
 
         return redirect()->route('absensi.index')->with('success', 'Absensi berhasil diperbarui.');
